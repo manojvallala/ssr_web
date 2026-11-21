@@ -273,6 +273,33 @@ footer p,footer a{font-size:14px;opacity:.75;display:block;margin-bottom:8px}foo
  .sl p{font-size:15px;margin-bottom:8px;line-height:1.45}.chips{display:none}.sk{margin-bottom:6px}
 }
 @media(max-width:400px){.logo img{height:36px}}
+
+/* varieties, packs and gallery (sack-on-light-card format) */
+.abrand{display:inline-block;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold2);border:1px solid var(--gold2);border-radius:30px;padding:6px 18px;margin-bottom:16px}
+.vars{list-style:none;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:1050px;margin:0 auto 46px;counter-reset:v}
+.vars li{counter-increment:v;display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:40px;padding:9px 22px 9px 10px;font-weight:500;color:var(--green)}
+.vars li::before{content:counter(v);width:28px;height:28px;flex:none;border-radius:50%;background:var(--green);color:var(--gold);display:grid;place-items:center;font-family:'Cormorant Garamond',serif;font-size:17px}
+.packs{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.pk{background:#fff;border-radius:20px;padding:12px;border:1px solid var(--line);transition:transform .4s,box-shadow .4s}
+.pk:hover{transform:translateY(-8px);box-shadow:0 26px 50px -26px #1f3d2b66}
+.pk .im{background:#f2f2f0;border-radius:14px;aspect-ratio:1/1.18;display:grid;place-items:center;padding:16px;overflow:hidden}
+.pk img{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 14px 16px rgba(0,0,0,.24));transition:transform .5s}
+.pk:hover img{transform:scale(1.05) rotate(-1deg)}
+.pk h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;color:var(--green);line-height:1.1;margin:14px 6px 4px}
+.pk p{margin:0 6px 8px;color:var(--mut);font-size:13px;line-height:1.45}
+.packnote{text-align:center;color:var(--mut);margin-top:26px}.packnote a{color:var(--green);font-weight:500;text-decoration:underline;text-underline-offset:4px}
+.gal{columns:3 260px;column-gap:18px}
+.gc{break-inside:avoid;margin:0 0 18px;background:#f2f2f0;border-radius:18px;padding:10px;border:1px solid var(--line);cursor:zoom-in;transition:transform .4s,box-shadow .4s}
+.gc:hover{transform:translateY(-6px);box-shadow:0 24px 46px -24px #1f3d2b66}
+.gc img{display:block;width:100%;height:auto;border-radius:11px}
+.ct{display:flex;flex-direction:column;gap:6px;margin:-8px 0 24px;font-size:18px}.ct a{color:var(--green);font-weight:500}.ct a:hover{text-decoration:underline}
+.fct{margin-top:14px;font-size:14px;opacity:.85;line-height:1.8}
+.lb{position:fixed;inset:0;z-index:90;background:rgba(10,16,12,.92);display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+.lb.on{display:flex}.lb img{max-width:100%;max-height:92vh;border-radius:12px;box-shadow:0 30px 80px #000a}
+.lb button{position:absolute;background:rgba(255,255,255,.14);color:#fff;border:0;width:46px;height:46px;border-radius:50%;font-size:24px;cursor:pointer;transition:background .3s}.lb button:hover{background:rgba(255,255,255,.3)}
+.lb .x{top:18px;right:18px}.lb .pv{left:18px;top:50%;transform:translateY(-50%)}.lb .nx{right:18px;top:50%;transform:translateY(-50%)}
+@media(max-width:1100px){.packs{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.packs{grid-template-columns:1fr 1fr;gap:12px}.pk h3{font-size:19px}.vars li{font-size:14px;padding-right:16px}}
 </style>
 </head>
 <body>
@@ -281,11 +308,11 @@ footer p,footer a{font-size:14px;opacity:.75;display:block;margin-bottom:8px}foo
 <header>
   <div class="hd">
     <a class="logo" href="#top" aria-label="Sri Sai Ramana Parboiled Modern Rice Mill (SSR)"><picture><source media="(max-width:640px)" srcset="assets/logo/lockup-compact.svg"><img src="assets/logo/lockup.svg" alt="Sri Sai Ramana Parboiled Modern Rice Mill (SSR)"></picture></a>
-    <nav class="nv"><a href="#shop">Our rice</a><a href="#story-intro">Our story</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#visit">Visit</a></nav>
+    <nav class="nv"><a href="#shop">Our rice</a><a href="#gallery">Gallery</a><a href="#story-intro">Our story</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#visit">Visit</a></nav>
     <div class="tools"><a class="cartb" href="#visit">Contact us</a><button class="bg" id="bgb" aria-label="Menu">☰</button></div>
   </div>
 </header>
-<div class="mnav" id="mnav"><button id="mx" aria-label="Close menu">×</button><a href="#shop">Our rice</a><a href="#story-intro">Our story</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#visit">Visit</a></div>
+<div class="mnav" id="mnav"><button id="mx" aria-label="Close menu">×</button><a href="#shop">Our rice</a><a href="#gallery">Gallery</a><a href="#story-intro">Our story</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="#visit">Visit</a></div>
 
 <main id="top">
 <section class="hero" id="hero">
@@ -297,7 +324,7 @@ footer p,footer a{font-size:14px;opacity:.75;display:block;margin-bottom:8px}foo
       <h1>Parboiled rice, <em>milled fresh</em> in Huzur Nagar.</h1>
       <p>We buy paddy from local farmers and turn it into clean, golden, nutritious rice &mdash; parboiled, milled, sorted and packed at our own modern mill.</p>
       <div class="hb"><a class="btn" href="#story-intro">See how we make it</a><a class="btn o" href="#visit">Visit the mill</a></div>
-      <ul class="hw"><li>Parboiled rice</li><li>Wholesale supply</li><li>Custom milling</li></ul>
+      <ul class="hw"><li>Parboiled rice</li><li>Wholesale supply</li><li>Custom milling</li><li>28 years in the rice field</li></ul>
     </div>
     <div class="hr">
       <div class="art">
@@ -321,7 +348,7 @@ footer p,footer a{font-size:14px;opacity:.75;display:block;margin-bottom:8px}foo
 </section>
 
 <div class="trust rvl">
-  <div class="tr"><i>🚚</i><div><b>Milled in Huzur Nagar</b><small>Our own modern mill</small></div></div>
+  <div class="tr"><i>🏅</i><div><b>28 years</b><small>of experience in the rice field</small></div></div>
   <div class="tr"><i>🌾</i><div><b>100% natural</b><small>No additives, ever</small></div></div>
   <div class="tr"><i>⭐</i><div><b>Premium grain</b><small>Sorted &amp; graded</small></div></div>
   <div class="tr"><i>📦</i><div><b>Freshly packed</b><small>Sealed at the mill</small></div></div>
@@ -339,16 +366,24 @@ footer p,footer a{font-size:14px;opacity:.75;display:block;margin-bottom:8px}foo
 </section>
 
 <section id="about"><div class="wrap story">
-  <div class="rvl"><h2>Delivering freshness from our mill to your table</h2><p>From the paddy fields of Telangana to homes across the region — every bag is parboiled, milled and sorted with care at Sri Sai Ramana Parboiled Modern Rice Mill, and delivered with love.</p><a class="btn o" href="#visit">Visit the mill</a></div>
+  <div class="rvl"><h2>Delivering freshness from our mill to your table</h2><p>From the paddy fields of Telangana to homes across the region — every bag is parboiled, milled and sorted with care at Sri Sai Ramana Parboiled Modern Rice Mill, and delivered with love.</p><p>With <b>28 years of experience in the rice field</b>, the SSR A+ brand stands for tasty, traditional, classic rice.</p><a class="btn o" href="#visit">Visit the mill</a></div>
   <div class="sq rvl"><video muted loop playsinline preload="none" aria-hidden="true" data-src="assets/story/07.mp4"></video><div>Soaked.<br>Steamed.<br>Milled.<small>The parboiled way</small></div></div>
 </div></section>
 
 
 
 <section id="shop" style="padding-top:0"><div class="wrap">
-  <div class="sh rvl"><h2>What we mill</h2><p>Freshly milled at our own mill in Huzur Nagar &mdash; for every kitchen and every kind of buyer.</p></div>
-  <div class="grid"><article class="card rvl"><div class="pi" style="background:#f3dfae"><svg viewBox="0 0 120 150" aria-hidden="true"><path d="M22 20 Q60 4 98 20 L108 138 Q60 150 12 138Z" fill="#fff" stroke="#1f3d2b" stroke-width="2.5"/><path d="M22 20 Q60 34 98 20" fill="none" stroke="#1f3d2b" stroke-width="2.5"/><rect x="26" y="52" width="68" height="58" rx="6" fill="#fff8e8" stroke="#1f3d2b" stroke-width="1.5"/><text x="60" y="78" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="17" fill="#1f3d2b">SSR</text><text x="60" y="94" text-anchor="middle" font-family="Georgia,serif" font-size="8" letter-spacing="1.5" fill="#b9852a">RICE MILL</text><ellipse cx="60" cy="40" rx="5" ry="8" fill="#e3b04b" transform="rotate(30 60 40)"/></svg></div><div class="pb"><span class="ptag">Signature</span><h3>Parboiled Rice</h3><p class="d">Our signature. Steamed before milling for firm, golden, non-sticky grains that keep their goodness.</p><a class="buy" href="#visit">Enquire at the mill &rarr;</a></div></article><article class="card rvl"><div class="pi" style="background:#e9efd9"><svg viewBox="0 0 120 150" aria-hidden="true"><path d="M22 20 Q60 4 98 20 L108 138 Q60 150 12 138Z" fill="#fff" stroke="#1f3d2b" stroke-width="2.5"/><path d="M22 20 Q60 34 98 20" fill="none" stroke="#1f3d2b" stroke-width="2.5"/><rect x="26" y="52" width="68" height="58" rx="6" fill="#fff8e8" stroke="#1f3d2b" stroke-width="1.5"/><text x="60" y="78" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="17" fill="#1f3d2b">SSR</text><text x="60" y="94" text-anchor="middle" font-family="Georgia,serif" font-size="8" letter-spacing="1.5" fill="#b9852a">RICE MILL</text><ellipse cx="60" cy="40" rx="5" ry="8" fill="#e3b04b" transform="rotate(30 60 40)"/></svg></div><div class="pb"><span class="ptag">Select</span><h3>Premium Sorted Rice</h3><p class="d">Polished, graded and colour-sorted for uniform length and a spotless finish on the plate.</p><a class="buy" href="#visit">Enquire at the mill &rarr;</a></div></article><article class="card rvl"><div class="pi" style="background:#dfe8d6"><svg viewBox="0 0 120 150" aria-hidden="true"><path d="M22 20 Q60 4 98 20 L108 138 Q60 150 12 138Z" fill="#fff" stroke="#1f3d2b" stroke-width="2.5"/><path d="M22 20 Q60 34 98 20" fill="none" stroke="#1f3d2b" stroke-width="2.5"/><rect x="26" y="52" width="68" height="58" rx="6" fill="#fff8e8" stroke="#1f3d2b" stroke-width="1.5"/><text x="60" y="78" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="17" fill="#1f3d2b">SSR</text><text x="60" y="94" text-anchor="middle" font-family="Georgia,serif" font-size="8" letter-spacing="1.5" fill="#b9852a">RICE MILL</text><ellipse cx="60" cy="40" rx="5" ry="8" fill="#e3b04b" transform="rotate(30 60 40)"/></svg></div><div class="pb"><span class="ptag">For trade</span><h3>Wholesale Packs</h3><p class="d">Dependable bulk supply for traders, shops, caterers and functions. Bag sizes on request.</p><a class="buy" href="#visit">Enquire at the mill &rarr;</a></div></article></div>
-  <div class="grid" style="margin-top:26px;grid-template-columns:repeat(2,1fr)"><article class="card rvl"><div class="pi" style="background:#f6e6c4"><svg viewBox="0 0 120 150" aria-hidden="true"><path d="M22 20 Q60 4 98 20 L108 138 Q60 150 12 138Z" fill="#fff" stroke="#1f3d2b" stroke-width="2.5"/><path d="M22 20 Q60 34 98 20" fill="none" stroke="#1f3d2b" stroke-width="2.5"/><rect x="26" y="52" width="68" height="58" rx="6" fill="#fff8e8" stroke="#1f3d2b" stroke-width="1.5"/><text x="60" y="78" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="17" fill="#1f3d2b">SSR</text><text x="60" y="94" text-anchor="middle" font-family="Georgia,serif" font-size="8" letter-spacing="1.5" fill="#b9852a">RICE MILL</text><ellipse cx="60" cy="40" rx="5" ry="8" fill="#e3b04b" transform="rotate(30 60 40)"/></svg></div><div class="pb"><span class="ptag">Service</span><h3>Custom Milling</h3><p class="d">Bring your own paddy &mdash; we process it with care and return clean, ready-to-cook rice.</p><a class="buy" href="#visit">Enquire at the mill &rarr;</a></div></article><article class="card rvl"><div class="pi" style="background:#ecdcc0"><svg viewBox="0 0 120 150" aria-hidden="true"><path d="M22 20 Q60 4 98 20 L108 138 Q60 150 12 138Z" fill="#fff" stroke="#1f3d2b" stroke-width="2.5"/><path d="M22 20 Q60 34 98 20" fill="none" stroke="#1f3d2b" stroke-width="2.5"/><rect x="26" y="52" width="68" height="58" rx="6" fill="#fff8e8" stroke="#1f3d2b" stroke-width="1.5"/><text x="60" y="78" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="17" fill="#1f3d2b">SSR</text><text x="60" y="94" text-anchor="middle" font-family="Georgia,serif" font-size="8" letter-spacing="1.5" fill="#b9852a">RICE MILL</text><ellipse cx="60" cy="40" rx="5" ry="8" fill="#e3b04b" transform="rotate(30 60 40)"/></svg></div><div class="pb"><span class="ptag">By-products</span><h3>Broken Rice &amp; Bran</h3><p class="d">Useful mill by-products for kitchens, feed and industry, collected straight from the line.</p><a class="buy" href="#visit">Enquire at the mill &rarr;</a></div></article></div>
+  <div class="sh rvl"><span class="abrand">SSR &middot; A+ Brand</span><h2>Our rice varieties</h2><p>Tasty &middot; Traditional &middot; Classic &mdash; parboiled, milled and packed at our own mill in Huzur Nagar.</p></div>
+  <ol class="vars rvl" aria-label="Varieties we make">
+    <li>JSR Kolam Steam Rice</li><li>JSR Kolam Old Raw Rice</li><li>HMT Steam</li><li>Jeera Rice</li><li>BPT Sona Masuri Steam Rice</li>
+  </ol>
+  <div class="packs"><article class="pk rvl"><div class="im"><img src="assets/pics/web/pack-a-plus.webp" alt="SSR A+ JSR Sizer Lachkari Kolam Rice pack" loading="lazy"></div><h3>A+ Lachkari Kolam Rice</h3><p>JSR Sizer Lachkari Kolam Rice &middot; Premium Quality</p></article><article class="pk rvl"><div class="im"><img src="assets/pics/web/pack-hmt-red.webp" alt="SSR HMT Rice pack" loading="lazy"></div><h3>HMT Rice</h3><p>Premium Quality &middot; Tasty, Traditional, Classic</p></article><article class="pk rvl"><div class="im"><img src="assets/pics/web/pack-black.webp" alt="SSR JSR Lachkari Wada Kolam Rice black pack" loading="lazy"></div><h3>Lachkari Wada Kolam Rice</h3><p>Premium &ldquo;Sizzer&rdquo; Quality</p></article><article class="pk rvl"><div class="im"><img src="assets/pics/web/pack-pink.webp" alt="SSR JSR Lachkari Wada Kolam Rice pink pack" loading="lazy"></div><h3>Lachkari Wada Kolam Rice</h3><p>Premium Quality &middot; Pink pack</p></article><article class="pk rvl"><div class="im"><img src="assets/pics/web/pack-wada-kolam.webp" alt="SSR Wada Kolam Rice pack" loading="lazy"></div><h3>Wada Kolam Rice</h3><p>Tasty &middot; Traditional &middot; Classic</p></article></div>
+  <p class="packnote rvl">Ask at the mill for pack sizes and the full range. <a href="#visit">Contact us &rarr;</a></p>
+</div></section>
+
+<section id="gallery" style="padding-top:0"><div class="wrap">
+  <div class="sh rvl"><h2>SSR in pictures</h2><p>Rooted in hard work, delivered with quality &mdash; tap a picture to enlarge it.</p></div>
+  <div class="gal rvl" id="gal"><figure class="gc"><img src="assets/pics/web/brand-farmer.jpg" alt="Rooted in hard work, delivered with quality: a farmer with fresh paddy and the SSR rice range" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-family-of-packs.jpg" alt="Cultivating generations of taste: the full SSR rice range" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-natures-finest.jpg" alt="Nature's finest, perfected for you" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-goodness.jpg" alt="Every grain filled with goodness" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-family-table.jpg" alt="Share moments that matter, one warm bowl at a time" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-pure.jpg" alt="From our paddy, purest on your plate" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-hmt-kitchen.jpg" alt="Every grain, a taste of tradition: SSR HMT Rice" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-tradition.jpg" alt="A tradition of taste" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-roots.jpg" alt="Nurture your roots, taste the soil's best" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-perfect-grain.jpg" alt="Choose the perfect grain for every occasion" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-harvest-happiness.jpg" alt="Taste tradition, harvest happiness" loading="lazy"></figure></div>
 </div></section>
 
 <div class="band rvl"><h2>Prefer to see it first?</h2><p>Walk into the mill on Miryalaguda–Kodad Road and pick your bag in person.</p><a class="btn" href="#visit">Get directions</a></div>
@@ -368,14 +403,14 @@ footer p,footer a{font-size:14px;opacity:.75;display:block;margin-bottom:8px}foo
 </div></section>
 
 <section id="visit" style="padding-top:0"><div class="wrap visit rvl">
-  <div class="vc"><h2>Visit the mill</h2><address>Sri Sai Ramana Parboiled Modern Rice Mill<br>Miryalaguda – Kodad Rd,<br>Opposite HP Petrol Bunk,<br>Huzur Nagar, Telangana 508204</address><div><a class="btn" target="_blank" rel="noopener" href="https://maps.app.goo.gl/t5rBpYjnioFWkWK38">Get directions ↗</a></div></div>
+  <div class="vc"><h2>Visit the mill</h2><address>Sri Sai Ramana Parboiled Modern Rice Mill<br>Miryalaguda – Kodad Rd,<br>Opposite HP Petrol Bunk,<br>Huzur Nagar, Telangana 508204</address><p class="ct"><a href="tel:+919963083339">&#128222; 9963083339</a><a href="mailto:srisairamanapbmrm@gmail.com">&#9993; srisairamanapbmrm@gmail.com</a></p><div><a class="btn" target="_blank" rel="noopener" href="https://maps.app.goo.gl/t5rBpYjnioFWkWK38">Get directions ↗</a></div></div>
   <div class="mp"><iframe title="Map to SSR Rice Mill" loading="lazy" src="https://www.google.com/maps?q=16.9077953,79.8633345&z=15&output=embed"></iframe></div>
 </div></section>
 </main>
 
 <footer>
   <div class="fg">
-    <div><img class="flogo" src="assets/logo/lockup-light.svg" alt="Sri Sai Ramana Parboiled Modern Rice Mill (SSR)"><h4 style="display:none">SSR Rice Mill</h4><p style="max-width:380px">Premium parboiled rice milled with care for everyday meals and special moments. Grain you can trust, straight from the mill.</p></div>
+    <div><img class="flogo" src="assets/logo/lockup-light.svg" alt="Sri Sai Ramana Parboiled Modern Rice Mill (SSR)"><h4 style="display:none">SSR Rice Mill</h4><p style="max-width:380px">Premium parboiled rice milled with care for everyday meals and special moments. Grain you can trust, straight from the mill.</p><p class="fct">&#128222; 9963083339<br>&#9993; srisairamanapbmrm@gmail.com</p></div>
     <div><h4>Quick links</h4><a href="#shop">Our rice</a><a href="#about">About us</a><a href="#faq">FAQ</a><a href="#visit">Contact</a></div>
     <div><h4>Explore</h4><a href="#story-intro">Our story</a><a href="#faq">FAQ</a><a target="_blank" rel="noopener" href="https://maps.app.goo.gl/t5rBpYjnioFWkWK38">Directions</a></div>
   </div>
@@ -386,7 +421,7 @@ footer p,footer a{font-size:14px;opacity:.75;display:block;margin-bottom:8px}foo
 
 <script>
 /* ============ EDIT ME ============ */
-const ANNOUNCE=["Direct from the mill","Parboiled &middot; Milled &middot; Sorted","Huzur Nagar, Telangana"];
+const ANNOUNCE=["28 years in the rice field","SSR A+ Brand","Parboiled &middot; Milled &middot; Sorted","Call 9963083339"];
 const FAQS=[
  ["What is parboiled rice?","Paddy is soaked and steamed in its husk before milling. The process moves nutrients from the husk into the grain and hardens it, giving firm, golden, non-sticky rice."],
  ["Why does parboiled rice break less?","Steaming gelatinises the starch and strengthens each kernel, so the grain stays whole through milling, storage and cooking."],
@@ -450,10 +485,22 @@ document.querySelectorAll(".rvl").forEach(el=>io.observe(el));
  new IntersectionObserver(e=>{if(!v.isConnected)return;e[0].isIntersecting?v.play().catch(()=>{}):v.pause()}).observe(h)})();
 
 /* refinements: scrollspy + lazy about video */
-(function(){const ids=["shop","story-intro","about","faq","visit"],links=[...document.querySelectorAll(".nv a")];
+(function(){const ids=["shop","gallery","story-intro","about","faq","visit"],links=[...document.querySelectorAll(".nv a")];
  const sp=()=>{let cur="";ids.forEach(id=>{const e=document.getElementById(id);if(e&&e.getBoundingClientRect().top<innerHeight*.4)cur=id});links.forEach(a=>a.classList.toggle("act",a.getAttribute("href")==="#"+cur))};
  addEventListener("scroll",sp,{passive:true});sp();
  const v=document.querySelector(".sq video");if(v)new IntersectionObserver(e=>{if(e[0].isIntersecting){if(!v.src)v.src=v.dataset.src;v.play().catch(()=>{})}else v.pause()},{threshold:.2}).observe(v);
+})();
+
+/* gallery lightbox */
+(function(){
+ const imgs=[...document.querySelectorAll("#gal img")];if(!imgs.length)return;let cur=0;
+ const lb=document.createElement("div");lb.className="lb";lb.setAttribute("role","dialog");lb.setAttribute("aria-label","Picture viewer");
+ lb.innerHTML='<button class="x" aria-label="Close">&times;</button><button class="pv" aria-label="Previous">&#8249;</button><img alt=""><button class="nx" aria-label="Next">&#8250;</button>';
+ document.body.appendChild(lb);const big=lb.querySelector("img");
+ const show=i=>{cur=(i+imgs.length)%imgs.length;big.src=imgs[cur].src;big.alt=imgs[cur].alt;lb.classList.add("on")};
+ imgs.forEach((im,i)=>{im.parentElement.addEventListener("click",()=>show(i))});
+ lb.addEventListener("click",e=>{if(e.target===lb||e.target.classList.contains("x"))lb.classList.remove("on");else if(e.target.classList.contains("pv"))show(cur-1);else if(e.target.classList.contains("nx"))show(cur+1)});
+ addEventListener("keydown",e=>{if(!lb.classList.contains("on"))return;if(e.key==="Escape")lb.classList.remove("on");if(e.key==="ArrowLeft")show(cur-1);if(e.key==="ArrowRight")show(cur+1)});
 })();
 </script>
 </body>

@@ -7,8 +7,8 @@ const OUT = 'dist';
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 
-const files = ['index.html', 'v2-midnight-gold.html', 'v4-amoha-style.html', 'hero-a-glass.html', 'hero-b-depth.html', 'assets/hero.mp4', 'assets/mill-a.jpg', 'assets/mill-b.jpg', 'assets/CREDITS.txt'];
-const dirs = ['assets/story', 'assets/logo'];
+const files = ['index.html', 'assets/hero.mp4', 'assets/CREDITS.txt'];
+const dirs = ['assets/story', 'assets/logo', 'assets/pics/web'];
 
 for (const f of files) {
   if (!existsSync(f)) { console.warn('missing, skipped:', f); continue; }

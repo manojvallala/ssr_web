@@ -1,14 +1,11 @@
 # Deploying the SSR Rice Mill website
 
 The site is plain HTML, CSS and JS with no framework. `node build.mjs` copies the needed files into `dist/`.
-Pages: `index.html` (option picker), `v2-midnight-gold.html`, `v4-amoha-style.html`.
+One page: `index.html` (the Paddy to Plate site).
 
 ## Before you deploy
-- [ ] In `v2-midnight-gold.html`, replace `WHATSAPP="91XXXXXXXXXX"` with the mill's real number (country code + number, no `+`).
-- [ ] Add the phone number / email you want shown (ask Claude to add them).
 - [ ] Videos total about 90 MB. Compress them if you can (see `assets/FOOTAGE-CHECKLIST.txt`) for faster loading on phones.
 - [ ] Check the Pexels licence on each clip (`assets/CREDITS.txt`).
-- [ ] Decide which design is final; then make it `index.html` so visitors land on it.
 
 ## Option A: Vercel
 Command line (fastest):
