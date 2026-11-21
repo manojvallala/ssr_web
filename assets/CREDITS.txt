@@ -12,3 +12,7 @@ story/07.mp4  https://www.pexels.com/video/traditional-grain-milling-in-action-2
 story/08.mp4  https://www.pexels.com/video/pouring-rice-grains-4100312/
 story/09.mp4  https://www.pexels.com/video/close-up-view-of-falling-rice-grains-on-a-basket-6365257/
 story/10.mp4  https://www.pexels.com/video/bowl-filled-with-rice-1841002/
+
+mill-a.jpg     https://www.pexels.com/photo/grain-bins-and-a-field-of-wheat-2714630/
+mill-b.jpg     https://www.pexels.com/photo/low-angle-shot-of-manufacturing-plant-under-blue-sky-257700/
+(Stand-ins. Replace with photos of the real SSR mill, keeping the same file names.)

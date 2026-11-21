@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SSR Rice Mill — Hero A: Glass Prism</title>
+<meta name="description" content="Sri Sai Ramana Parboiled Modern Rice Mill, Huzur Nagar, Telangana — parboiled rice, wholesale and custom milling.">
+<link rel="icon" type="image/svg+xml" href="assets/logo/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#e3b04b;--green:#1f3d2b;--cream:#f8f3e8}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Jost,sans-serif;background:#120f08;color:#fff;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:16px 5vw}
+.logo{display:block;line-height:0}.logo img{height:54px;width:auto}
+.links{display:flex;gap:32px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.links a{opacity:.85;transition:opacity .3s}.links a:hover{opacity:1}
+/* glass = glossy frosted surface with specular highlight */
+.glass{position:relative;background:linear-gradient(135deg,rgba(255,255,255,.24),rgba(255,255,255,.05) 55%,rgba(255,255,255,.12));
+ backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(255,255,255,.34);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.65),inset 0 -24px 40px rgba(255,255,255,.04),0 30px 70px -20px rgba(0,0,0,.6)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+ background:radial-gradient(420px circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.3),transparent 60%);mix-blend-mode:soft-light}
+.glass::after{content:"";position:absolute;left:6%;right:6%;top:0;height:42%;border-radius:inherit;pointer-events:none;
+ background:linear-gradient(180deg,rgba(255,255,255,.2),transparent);opacity:.55;clip-path:ellipse(70% 100% at 50% 0)}
+.nav .cta{padding:11px 24px;border-radius:40px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.hero{position:relative;min-height:100vh;display:grid;align-items:center;padding:120px 5vw 190px;perspective:1400px;overflow:hidden}
+.stage{position:absolute;inset:-7%;transform-style:preserve-3d;will-change:transform}
+.bg{position:absolute;inset:0;background:url(assets/mill-a.jpg) 50% 72%/cover;filter:saturate(1.12) contrast(1.05);will-change:transform}
+.tint{position:absolute;inset:0;background:linear-gradient(100deg,rgba(12,16,22,.82) 4%,rgba(12,16,22,.38) 55%,rgba(12,16,22,.04)),linear-gradient(0deg,rgba(18,14,6,.72),transparent 42%)}
+.panel{position:relative;z-index:3;max-width:660px;padding:clamp(28px,4vw,52px);border-radius:30px;transform-style:preserve-3d;will-change:transform}
+.pill{display:inline-flex;gap:10px;align-items:center;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:8px 16px;border-radius:30px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28)}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(44px,6.2vw,92px);line-height:.96;letter-spacing:-.02em;margin:22px 0 18px;text-shadow:0 6px 30px rgba(0,0,0,.4)}
+h1 em{color:var(--gold)}
+.panel p{font-size:clamp(16px,1.4vw,19px);line-height:1.6;opacity:.92;max-width:520px;margin-bottom:28px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.b1,.b2{padding:16px 32px;border-radius:50px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;transition:transform .3s,box-shadow .3s}
+.b1{background:linear-gradient(180deg,#f7d98a,#e3b04b 55%,#c4891f);color:#2a1d06;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 12px 30px -8px rgba(227,176,75,.6)}
+.b1:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 18px 38px -8px rgba(227,176,75,.8)}
+.b2{border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.08)}.b2:hover{background:rgba(255,255,255,.2);transform:translateY(-3px)}
+.chip{position:absolute;z-index:4;padding:12px 22px;border-radius:40px;font-size:14px;display:flex;gap:10px;align-items:center;will-change:transform;animation:fl 6s ease-in-out infinite alternate}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.c1{right:12vw;top:24vh}.c2{right:5vw;top:46vh;animation-delay:-2s}.c3{right:18vw;top:64vh;animation-delay:-4s}
+@keyframes fl{to{margin-top:-12px}}
+.steps{position:absolute;z-index:4;left:5vw;right:5vw;bottom:5vh;max-width:1180px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);border-radius:22px;overflow:hidden}
+.steps div{padding:20px 24px;display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:center;border-right:1px solid rgba(255,255,255,.2)}
+.steps div:last-child{border:0}
+.steps b{grid-row:span 2;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(180deg,#f7d98a,#c4891f);color:#2a1d06;font-family:'Cormorant Garamond',serif;font-size:22px}
+.steps span{font-weight:500}.steps small{opacity:.75;font-size:13px}
+.visit{padding:70px 5vw;text-align:center;background:#120f08}
+.visit h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600}
+.visit p{opacity:.7;margin:10px 0 22px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-width:980px){.links{display:none}.chip{display:none}.steps{grid-template-columns:1fr 1fr}.steps div:nth-child(2){border-right:0}.steps div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.2)}.hero{padding-bottom:260px}}
+@media(max-width:560px){.logo img{height:44px}.steps div{padding:12px 14px}.steps small{display:none}.steps b{width:32px;height:32px;font-size:18px}.hero{padding-top:100px;padding-bottom:230px}.nav .cta{display:none}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#" aria-label="Sri Sai Ramana Parboiled Modern Rice Mill (SSR)"><picture><source media="(max-width:640px)" srcset="assets/logo/lockup-compact-light.svg"><img src="assets/logo/lockup-light.svg" alt="Sri Sai Ramana Parboiled Modern Rice Mill (SSR)"></picture></a>
+  <nav class="links"><a href="#hero">Home</a><a href="#steps">Process</a><a href="#visit">Visit</a></nav>
+  <a class="cta glass" href="#visit">Contact us</a>
+</header>
+
+<section class="hero" id="hero">
+  <div class="stage" id="stage"><div class="bg" id="bg"></div><div class="tint"></div></div>
+  <div class="panel glass" id="panel">
+    <span class="pill"><i></i>Sri Sai Ramana Parboiled Modern Rice Mill</span>
+    <h1>Parboiled rice, <em>milled fresh</em> in Huzur Nagar.</h1>
+    <p>We buy paddy from local farmers and turn it into clean, golden, nutritious rice &mdash; parboiled, milled, sorted and packed at our own modern mill.</p>
+    <div class="btns"><a class="b1" href="#steps">See how we make it</a><a class="b2" href="#visit">Visit the mill</a></div>
+  </div>
+  <span class="chip glass c1" data-d="22"><i></i>Parboiled</span>
+  <span class="chip glass c2" data-d="38"><i></i>Freshly milled</span>
+  <span class="chip glass c3" data-d="30"><i></i>Sorted &amp; packed</span>
+  <div class="steps glass" id="steps">
+    <div><b>1</b><span>Buy paddy</span><small>from local farmers</small></div>
+    <div><b>2</b><span>Parboil</span><small>soak &amp; steam the grain</small></div>
+    <div><b>3</b><span>Mill &amp; polish</span><small>on modern machines</small></div>
+    <div><b>4</b><span>Sort &amp; pack</span><small>for kitchens &amp; trade</small></div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <h2>Visit the mill</h2>
+  <p>Miryalaguda – Kodad Rd, Opposite HP Petrol Bunk, Huzur Nagar, Telangana 508204</p>
+  <a class="b1" target="_blank" rel="noopener" href="https://maps.app.goo.gl/t5rBpYjnioFWkWK38">Get directions</a>
+</section>
+
+<script>
+(function(){
+ const hero=document.getElementById("hero"),stage=document.getElementById("stage"),bg=document.getElementById("bg"),panel=document.getElementById("panel"),chips=[...document.querySelectorAll(".chip")];
+ const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+ let tx=0,ty=0,cx=0,cy=0,auto=true,vis=true;
+ hero.addEventListener("pointermove",e=>{const r=hero.getBoundingClientRect();tx=((e.clientX-r.left)/r.width-.5)*2;ty=((e.clientY-r.top)/r.height-.5)*2;auto=false});
+ hero.addEventListener("pointerleave",()=>{auto=true});
+ new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(hero);
+ function loop(t){
+  if(vis){
+   if(auto){tx=Math.sin(t/3200)*.6;ty=Math.cos(t/4100)*.4}
+   cx+=(tx-cx)*.07;cy+=(ty-cy)*.07;
+   stage.style.transform="rotateX("+(-cy*3)+"deg) rotateY("+(cx*4)+"deg)";
+   bg.style.transform="translate3d("+(-cx*22)+"px,"+(-cy*14)+"px,0) scale(1.05)";
+   panel.style.transform="rotateX("+(-cy*5)+"deg) rotateY("+(cx*6)+"deg) translateZ(50px)";
+   panel.style.setProperty("--gx",(50+cx*45)+"%");panel.style.setProperty("--gy",(35+cy*45)+"%");
+   chips.forEach(c=>{const d=+c.dataset.d;c.style.transform="translate3d("+(cx*d)+"px,"+(cy*d)+"px,0)";c.style.setProperty("--gx",(50+cx*60)+"%")});
+  }
+  if(!still)requestAnimationFrame(loop);
+ }
+ requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
