@@ -1,0 +1,44 @@
+SSR RICE MILL - STOCK FOOTAGE CHECKLIST
+=======================================
+
+Where to download (free, no attribution required for commercial use):
+  - https://www.pexels.com/videos/      (licence: free for commercial use)
+  - https://pixabay.com/videos/         (licence: free for commercial use)
+Check the licence line on each clip page before downloading.
+
+HOW IT WORKS
+  Save each clip with the EXACT file name below. The website plays it
+  automatically. If a file is missing, the page shows its drawn fallback instead,
+  so you can add clips one at a time.
+
+  - Hero (top of page):  assets/hero.mp4
+  - Story chapters:      assets/story/01.mp4 ... assets/story/12.mp4
+
+CLIPS TO FIND (search terms in quotes)
+  hero.mp4  "paddy field sunrise", "rice field golden", "rice harvest india"
+            Wide, slow, bright, no text, no logos. Landscape (16:9).
+
+  story/01  "rice planting", "paddy seedlings rain", "farmer ploughing field"
+  story/02  "green rice field wind", "paddy field growing"
+  story/03  "rice harvest", "harvesting paddy india", "combine harvester rice"
+  story/04  "rice sacks truck", "grain truck unloading", "weighing grain"
+  story/05  "grain cleaning machine", "rice sieve", "winnowing rice"
+  story/06  "soaking rice water", "rice washing water"
+  story/07  "steam boiler", "steaming rice", "factory steam"
+  story/08  "drying rice sun", "paddy drying yard", "rice drying india"
+  story/09  "rice mill", "rice milling machine", "rice husk"
+  story/10  "rice sorting machine", "rice grains conveyor", "rice factory"
+  story/11  "rice packing", "rice bags factory", "sack stitching"
+  story/12  "cooked rice steam", "rice bowl", "cooking rice pot"
+
+FILE SPECS (keeps the site fast)
+  - Format: MP4 (H.264), landscape, no audio needed
+  - Length: 8-20 seconds (they loop)
+  - Size: hero under 8 MB, each story clip under 4 MB
+
+COMPRESS WITH FFMPEG (optional, if a file is too big)
+  ffmpeg -i input.mp4 -vf scale=1280:-2 -an -c:v libx264 -crf 28 -preset slow -movflags +faststart output.mp4
+
+NOTE: stock footage is generic and will not show SSR's actual mill. If you can
+film your own clips on a phone (landscape, steady, good light) at the mill -
+the yard, the machines, the bags - use those instead for the same file names.

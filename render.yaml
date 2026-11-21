@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ssr-rice-mill
+    runtime: static
+    buildCommand: node build.mjs
+    staticPublishPath: ./dist
+    headers:
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /*.html
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
