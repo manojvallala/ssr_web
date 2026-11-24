@@ -7,7 +7,7 @@ const OUT = 'dist';
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 
-const files = ['index.html', 'assets/hero.mp4', 'assets/hero-poster.jpg', 'assets/CREDITS.txt'];
+const files = ['index.html', 'assets/hero.mp4', 'assets/hero-poster.jpg', 'assets/CREDITS.txt', 'assets/ICONS-LICENSE.txt'];
 const dirs = ['assets/story', 'assets/logo', 'assets/pics/web'];
 
 for (const f of files) {
