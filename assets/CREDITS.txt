@@ -20,3 +20,6 @@ pics/web/mill-silos-elevator.jpg    https://www.pexels.com/photo/industrial-silo
 pics/web/mill-grain-facility.jpg    https://www.pexels.com/photo/grain-bins-and-a-field-of-wheat-2714630/
 pics/web/mill-machinery-hall.jpg    https://www.pexels.com/photo/industrial-machinery-in-a-factory-18920790/
 pics/web/mill-workers-baskets.jpg   https://www.pexels.com/photo/two-men-carrying-a-basket-of-white-powder-5262433/
+
+Loading screen (Pexels, free to use - https://www.pexels.com/license/):
+loader/walk-720.mp4, loader/walk-540.mp4, loader/walk-poster.jpg   https://www.pexels.com/video/man-carrying-a-bag-while-walking-4684807/
