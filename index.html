@@ -289,10 +289,24 @@ footer p,footer a{font-size:14px;opacity:.75;display:block;margin-bottom:8px}foo
 .pk h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;color:var(--green);line-height:1.1;margin:14px 6px 4px}
 .pk p{margin:0 6px 8px;color:var(--mut);font-size:13px;line-height:1.45}
 .packnote{text-align:center;color:var(--mut);margin-top:26px}.packnote a{color:var(--green);font-weight:500;text-decoration:underline;text-underline-offset:4px}
-.gal{columns:3 260px;column-gap:18px}
-.gc{break-inside:avoid;margin:0 0 18px;background:#f2f2f0;border-radius:18px;padding:10px;border:1px solid var(--line);cursor:zoom-in;transition:transform .4s,box-shadow .4s}
-.gc:hover{transform:translateY(-6px);box-shadow:0 24px 46px -24px #1f3d2b66}
-.gc img{display:block;width:100%;height:auto;border-radius:11px}
+/* SSR in pictures: auto-playing slideshow. Square frame (most pictures are square posters), every picture fills it edge to edge, no padding.
+   Each picture slowly zooms out so it always ends on its full view. */
+.gst{position:relative;width:min(100%,82vh);aspect-ratio:1/1;margin:0 auto;border-radius:var(--r);overflow:hidden;background:#14261b;box-shadow:0 40px 80px -40px #1f3d2b99;isolation:isolate;touch-action:pan-y}
+.gsl{position:absolute;inset:0;margin:0;opacity:0;overflow:hidden;transition:opacity 1.6s ease}
+.gsl.on{opacity:1;z-index:1}
+.gsl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;transform:scale(1.06);transform-origin:var(--ox,50%) var(--oy,50%);will-change:transform}
+.gsl.run img{animation:gkb var(--gd,7s) ease-out forwards}
+.gst.paused .gsl img{animation-play-state:paused}
+@keyframes gkb{from{transform:scale(1.06)}to{transform:scale(1)}}
+/* tall pictures (class="pan"): the camera pans from the top of the picture down to the bottom instead of zooming, so nothing is left out */
+.gsl img.pan{transform:none;object-position:50% 0%}
+.gsl.run img.pan{animation:gpan var(--gp,5s) ease-in-out forwards}
+@keyframes gpan{0%,12%{object-position:50% 0%}80%,100%{object-position:50% 100%}}
+.gnv{position:absolute;top:50%;z-index:3;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(31,61,43,.6);color:#fff;border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;transition:background .3s,color .3s}
+.gnv:hover{background:var(--cream);color:var(--green)}
+.gnv svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.gnv.pv{left:16px}.gnv.nx{right:16px}
+@media(max-width:700px){.gnv{width:40px;height:40px}.gnv.pv{left:10px}.gnv.nx{right:10px}}
 .ct{display:flex;flex-direction:column;gap:6px;margin:-8px 0 24px;font-size:18px}.ct a{color:var(--green);font-weight:500}.ct a:hover{text-decoration:underline}
 .fct{margin-top:14px;font-size:14px;opacity:.85;line-height:1.8}
 .lb{position:fixed;inset:0;z-index:90;background:rgba(10,16,12,.92);display:none;align-items:center;justify-content:center;padding:4vh 4vw}
@@ -322,14 +336,14 @@ footer p,footer a{font-size:14px;opacity:.75;display:block;margin-bottom:8px}foo
 .ic{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.2em}
 .ic-lg{width:26px;height:26px;stroke-width:1.9;vertical-align:middle}
 .tr i svg.ic{width:26px;height:26px;color:var(--green);stroke-width:1.6;vertical-align:middle}
-.ct a,.fct{display:block}.ct a .ic{margin-right:6px;color:var(--gold2)}.fct .ic{margin-right:6px;color:var(--gold)}
+.ct a,.fct{display:block}.ct a .ic{margin-right:6px;color:var(--gold2)}.ct a.wa .ic{color:#1fa855}.fct .ic{margin-right:6px;color:var(--gold)}
 .bg{line-height:0}
 .hw li::before{content:"";display:inline-block;width:1em;height:1em;margin-right:.4em;vertical-align:-.17em;background:var(--gold2);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5' /%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5' /%3E%3C/svg%3E") center/contain no-repeat}
 
 /* container consistency: every section aligns to the same left/right edges, max width 1920px */
 #faq .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:var(--gutter);align-items:start}
 #faq .sh{text-align:left;margin-bottom:0;position:sticky;top:120px}
-@media(min-width:1600px){.gal{columns:4 300px}}
+
 @media(max-width:980px){#faq .wrap{grid-template-columns:1fr}#faq .sh{text-align:center;margin-bottom:40px;position:static}}
 
 /* background videos: never show the native play button (iPhone Safari shows it when autoplay is blocked, e.g. Low Power Mode) */
@@ -405,7 +419,7 @@ video::-webkit-media-controls-play-button{display:none!important;-webkit-appeara
 </head>
 <body>
 <!-- Icons: Lucide (https://lucide.dev), ISC License - see assets/ICONS-LICENSE.txt -->
-<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-award" viewBox="0 0 24 24"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" /> <circle cx="12" cy="8" r="6" /></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /> <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol><symbol id="i-package" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7" /> <path d="m7.5 4.27 9 5.15" /></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2" /> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol><symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12" /> <line x1="4" x2="20" y1="6" y2="6" /> <line x1="4" x2="20" y1="18" y2="18" /></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></symbol><symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10" /> <path d="M7 17 17 7" /></symbol></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="i-award" viewBox="0 0 24 24"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526" /> <circle cx="12" cy="8" r="6" /></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /> <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol><symbol id="i-package" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7" /> <path d="m7.5 4.27 9 5.15" /></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2" /> <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></symbol><symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol><symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12" /> <line x1="4" x2="20" y1="6" y2="6" /> <line x1="4" x2="20" y1="18" y2="18" /></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14" /> <path d="m12 5 7 7-7 7" /></symbol><symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10" /> <path d="M7 17 17 7" /></symbol></svg>
 
 <div class="ann" id="ann"></div>
 
@@ -484,8 +498,8 @@ video::-webkit-media-controls-play-button{display:none!important;-webkit-appeara
 </div></section>
 
 <section id="gallery" style="padding-top:0"><div class="wrap">
-  <div class="sh rvl"><h2>SSR in pictures</h2><p>Rooted in hard work, delivered with quality &mdash; tap a picture to enlarge it.</p></div>
-  <div class="gal rvl" id="gal"><!-- mill photos: free-licence stock stand-ins (see assets/CREDITS.txt); replace with photos of the real mill --><figure class="gc"><img src="assets/pics/web/mill-drying-yard.jpg" alt="Workers raking paddy to dry in the yard of a rice mill" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/mill-paddy-sacks.jpg" alt="Farmers beside a heap of paddy and stacked sacks" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/mill-silos-elevator.jpg" alt="Grain silos and an elevator tower on a mill building" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/mill-grain-facility.jpg" alt="Grain silos and elevator tower under a blue sky" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/mill-machinery-hall.jpg" alt="Inside a large mill hall with machinery" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/mill-workers-baskets.jpg" alt="Workers carrying baskets inside a mill" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-farmer.jpg" alt="Rooted in hard work, delivered with quality: a farmer with fresh paddy and the SSR rice range" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-family-of-packs.jpg" alt="Cultivating generations of taste: the full SSR rice range" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-natures-finest.jpg" alt="Nature's finest, perfected for you" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-goodness.jpg" alt="Every grain filled with goodness" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-family-table.jpg" alt="Share moments that matter, one warm bowl at a time" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-pure.jpg" alt="From our paddy, purest on your plate" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-hmt-kitchen.jpg" alt="Every grain, a taste of tradition: SSR HMT Rice" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-tradition.jpg" alt="A tradition of taste" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-roots.jpg" alt="Nurture your roots, taste the soil's best" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-perfect-grain.jpg" alt="Choose the perfect grain for every occasion" loading="lazy"></figure><figure class="gc"><img src="assets/pics/web/brand-harvest-happiness.jpg" alt="Taste tradition, harvest happiness" loading="lazy"></figure></div>
+  <div class="sh rvl"><h2>SSR in pictures</h2><p>Rooted in hard work, delivered with quality.</p></div>
+  <div class="gshow rvl" id="gal" role="region" aria-roledescription="slideshow" aria-label="SSR in pictures"><!-- mill photos: free-licence stock stand-ins (see assets/CREDITS.txt); replace with photos of the real mill --><div class="gst"><figure class="gsl on"><img data-src="assets/pics/web/mill-drying-yard.jpg" alt="Workers raking paddy to dry in the yard of a rice mill" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/mill-paddy-sacks.jpg" alt="Farmers beside a heap of paddy and stacked sacks" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/mill-silos-elevator.jpg" alt="Grain silos and an elevator tower on a mill building" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/mill-grain-facility.jpg" alt="Grain silos and elevator tower under a blue sky" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/mill-machinery-hall.jpg" alt="Inside a large mill hall with machinery" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/mill-workers-baskets.jpg" alt="Workers carrying baskets inside a mill" decoding="async"></figure><figure class="gsl"><img class="pan" data-src="assets/pics/web/brand-farmer.jpg" alt="Rooted in hard work, delivered with quality: a farmer with fresh paddy and the SSR rice range" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-family-of-packs.jpg" alt="Cultivating generations of taste: the full SSR rice range" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-natures-finest.jpg" alt="Nature's finest, perfected for you" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-goodness.jpg" alt="Every grain filled with goodness" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-family-table.jpg" alt="Share moments that matter, one warm bowl at a time" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-pure.jpg" alt="From our paddy, purest on your plate" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-hmt-kitchen.jpg" alt="Every grain, a taste of tradition: SSR HMT Rice" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-tradition.jpg" alt="A tradition of taste" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-roots.jpg" alt="Nurture your roots, taste the soil's best" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-perfect-grain.jpg" alt="Choose the perfect grain for every occasion" decoding="async"></figure><figure class="gsl"><img data-src="assets/pics/web/brand-harvest-happiness.jpg" alt="Taste tradition, harvest happiness" decoding="async"></figure></div></div>
 </div></section>
 
 <div class="band rvl"><h2>Prefer to see it first?</h2><p>Walk into the mill on Miryalaguda–Kodad Road and pick your bag in person.</p><a class="btn" href="#visit">Get directions</a></div>
@@ -505,7 +519,7 @@ video::-webkit-media-controls-play-button{display:none!important;-webkit-appeara
 </div></section>
 
 <section id="visit" style="padding-top:0"><div class="wrap visit rvl">
-  <div class="vc"><h2>Visit the mill</h2><address>Sri Sai Ramana Parboiled Modern Rice Mill<br>Miryalaguda – Kodad Rd,<br>Opposite HP Petrol Bunk,<br>Huzur Nagar, Telangana 508204</address><p class="ct"><a href="tel:+919963083339"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg> 9963083339</a><a href="mailto:srisairamanapbmrm@gmail.com"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg> srisairamanapbmrm@gmail.com</a></p><div><a class="btn" target="_blank" rel="noopener" href="https://maps.app.goo.gl/t5rBpYjnioFWkWK38">Get directions <svg class="ic" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></div></div>
+  <div class="vc"><h2>Visit the mill</h2><address>Sri Sai Ramana Parboiled Modern Rice Mill<br>Miryalaguda – Kodad Rd,<br>Opposite HP Petrol Bunk,<br>Huzur Nagar, Telangana 508204</address><p class="ct"><a href="tel:+919963083339"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg> 9963083339</a><a href="mailto:srisairamanapbmrm@gmail.com"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg> srisairamanapbmrm@gmail.com</a><a class="wa" href="https://wa.me/919963083339?text=Hello%20SSR%20Rice%20Mill%2C%20I%20would%20like%20to%20know%20about%20your%20rice%20varieties%2C%20prices%20and%20availability.%20Please%20share%20the%20details." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp (opens in a new tab)"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-whatsapp"/></svg> Chat on WhatsApp</a></p><div><a class="btn" target="_blank" rel="noopener" href="https://maps.app.goo.gl/t5rBpYjnioFWkWK38">Get directions <svg class="ic" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></div></div>
   <div class="mp"><iframe title="Map to SSR Rice Mill" loading="lazy" src="https://www.google.com/maps?q=16.9077953,79.8633345&z=15&output=embed"></iframe></div>
 </div></section>
 </main>
@@ -513,7 +527,7 @@ video::-webkit-media-controls-play-button{display:none!important;-webkit-appeara
 <footer>
   <div class="fg">
     <div><div class="flock"><img src="assets/logo/ssr-mark-light.png" width="441" height="320" alt="Sri Sai Ramana Parboiled Modern Rice Mill (SSR)" loading="lazy"></div><h4 style="display:none">SSR Rice Mill</h4><p style="max-width:380px">Premium parboiled rice milled with care for everyday meals and special moments. Grain you can trust, straight from the mill.</p><p class="fct"><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-phone"/></svg> 9963083339<br><svg class="ic" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg> srisairamanapbmrm@gmail.com</p></div>
-    <div><h4>Quick links</h4><a href="#shop">Our rice</a><a href="#about">About us</a><a href="#faq">FAQ</a><a href="#visit">Contact</a></div>
+    <div><h4>Quick links</h4><a href="#shop">Our rice</a><a href="#about">About us</a><a href="#faq">FAQ</a><a href="https://wa.me/919963083339?text=Hello%20SSR%20Rice%20Mill%2C%20I%20found%20your%20website%20and%20have%20an%20enquiry.%20Please%20get%20in%20touch%20with%20me." target="_blank" rel="noopener" aria-label="Contact us on WhatsApp (opens in a new tab)">Contact</a></div>
     <div><h4>Explore</h4><a href="#story-intro">Our story</a><a href="#faq">FAQ</a><a target="_blank" rel="noopener" href="https://maps.app.goo.gl/t5rBpYjnioFWkWK38">Directions</a></div>
   </div>
   <div class="fb">© 2026 Sri Sai Ramana Parboiled Modern Rice Mill. All rights reserved. Crafted with <svg class="ic" style="color:#e3b04b;fill:currentColor;width:1em;height:1em" aria-hidden="true" focusable="false"><use href="#i-heart"/></svg> in Huzur Nagar, Telangana</div>
@@ -523,6 +537,7 @@ video::-webkit-media-controls-play-button{display:none!important;-webkit-appeara
 
 <script>
 /* ============ EDIT ME ============ */
+const GALLERY_SECONDS=5; /* "SSR in pictures": seconds each picture stays on screen before moving to the next (e.g. 15 or 30) */
 const ANNOUNCE=["28 years in the rice field","SSR &amp; A+ Brands","Parboiled &middot; Milled &middot; Sorted","Call 9963083339"];
 const FAQS=[
  ["What is parboiled rice?","Paddy is soaked and steamed in its husk before milling. The process moves nutrients from the husk into the grain and hardens it, giving firm, golden, non-sticky rice."],
@@ -577,6 +592,46 @@ document.querySelectorAll(".rvl").forEach(el=>io.observe(el));
  function upd(){const r=track.getBoundingClientRect(),tot=r.height-innerHeight,p=Math.min(1,Math.max(0,-r.top/tot));show(Math.min(N-1,Math.floor(p*N*.999)));document.getElementById("sbar").style.width=p*100+"%"}
  pr.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const tot=track.offsetHeight-innerHeight,y=track.getBoundingClientRect().top+scrollY+(+b.dataset.i+.5)/N*tot;scrollTo({top:y,behavior:"smooth"})});
  size();addEventListener("resize",()=>{size();upd()});addEventListener("scroll",upd,{passive:true});upd();
+})();
+
+/* ===== SSR in pictures: plays like a film. Each picture drifts slowly for GALLERY_SECONDS, then fades to the next, looping.
+   Previous/next arrows (and swipe on phones) let visitors move themselves; autoplay carries on from there. ===== */
+(function(){
+ const g=document.getElementById("gal");if(!g)return;
+ const st=g.querySelector(".gst"),sl=[...st.querySelectorAll(".gsl")],N=sl.length;if(!N)return;
+ const DUR=Math.max(3,GALLERY_SECONDS)*1000;
+ /* a different drift for each picture so it feels like camera movement */
+ const ORG=[["30%","35%"],["70%","40%"],["50%","75%"],["25%","65%"],["75%","25%"],["50%","30%"]];
+ sl.forEach((f,i)=>{f.style.setProperty("--ox",ORG[i%ORG.length][0]);f.style.setProperty("--oy",ORG[i%ORG.length][1]);f.style.setProperty("--gd",(DUR/1000+2)+"s");f.style.setProperty("--gp",(DUR/1000)+"s")});
+ const arrow=d=>`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+ st.insertAdjacentHTML("beforeend",`<button class="gnv pv" type="button" aria-label="Previous picture">${arrow("m15 18-6-6 6-6")}</button><button class="gnv nx" type="button" aria-label="Next picture">${arrow("m9 18 6-6-6-6")}</button>`);
+ function load(i){const f=sl[(i%N+N)%N],im=f.querySelector("img"),s=im.dataset.src;if(!s)return;im.src=s;delete im.dataset.src}
+ function run(f){f.classList.remove("run");void f.offsetWidth;f.classList.add("run")}
+ let cur=0,t=0,last=0,near=false,vis=false;
+ function go(i){i=(i+N)%N;if(i===cur)return;const prev=sl[cur];cur=i;t=0;load(i);load(i+1);load(i-1);
+  sl.forEach((f,j)=>f.classList.toggle("on",j===i));run(sl[i]);
+  /* reset the previous picture's drift once it has faded out */
+  setTimeout(()=>{if(prev!==sl[cur])prev.classList.remove("run")},1800)}
+ function playing(){return vis&&!document.hidden}
+ function state(){st.classList.toggle("paused",!playing())}
+ function tick(now){const dt=last?Math.min(now-last,100):0;last=now;
+  if(playing()){t+=dt;if(t>=DUR)go(cur+1)}
+  requestAnimationFrame(tick)}
+ /* manual navigation: arrows, keyboard arrows, swipe. The timer restarts on the picture they land on. */
+ st.querySelector(".pv").addEventListener("click",()=>go(cur-1));
+ st.querySelector(".nx").addEventListener("click",()=>go(cur+1));
+ st.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")go(cur-1);else if(e.key==="ArrowRight")go(cur+1)});
+ let sx=null,sy=0;
+ st.addEventListener("pointerdown",e=>{if(e.target.closest("button"))return;sx=e.clientX;sy=e.clientY});
+ st.addEventListener("pointerup",e=>{if(sx===null)return;const dx=e.clientX-sx,dy=e.clientY-sy;sx=null;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy))go(dx<0?cur+1:cur-1)});
+ st.addEventListener("pointercancel",()=>sx=null);
+ /* load the first pictures a little before the section scrolls into view */
+ new IntersectionObserver(e=>{if(e[0].isIntersecting&&!near){near=true;load(0);load(1)}},{rootMargin:"800px 0px"}).observe(g);
+ /* play only while the slideshow is on screen; it picks up where it left off */
+ let started=false;
+ new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis&&!started){started=true;load(0);load(1);run(sl[0])}state()},{threshold:.3}).observe(st);
+ document.addEventListener("visibilitychange",state);
+ state();requestAnimationFrame(tick);
 })();
 
 /* hero footage: poster shows instantly, video plays over it (works on reload too) */
