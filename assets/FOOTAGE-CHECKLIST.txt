@@ -11,8 +11,8 @@ HOW IT WORKS
   automatically. If a file is missing, the page shows its drawn fallback instead,
   so you can add clips one at a time.
 
-  - Hero (top of page):  assets/hero.mp4
-  - Story chapters:      assets/story/01.mp4 ... assets/story/12.mp4
+  - Hero (top of page):  public/assets/hero.mp4
+  - Story chapters:      public/assets/story/01.mp4 ... public/assets/story/12.mp4
 
 CLIPS TO FIND (search terms in quotes)
   hero.mp4  "paddy field sunrise", "rice field golden", "rice harvest india"
