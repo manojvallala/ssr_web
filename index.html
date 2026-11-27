@@ -11,38 +11,53 @@
 <link rel="apple-touch-icon" href="assets/logo/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&family=Noto+Sans+Telugu:wght@400;500;600&family=Noto+Serif+Telugu:wght@500;600&display=swap" rel="stylesheet">
 <!-- Look and flow inspired by a premium brand site: announcement bar, full-bleed hero, trust strip, story, FAQ -->
-<link rel="preload" as="image" href="assets/loader/walk-poster.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="assets/loader/field-sunrise.jpg" imagesrcset="assets/loader/field-sunrise-sm.jpg 1024w, assets/loader/field-sunrise.jpg 1536w" imagesizes="max(100vw,177.78vh)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/loader/bullock-cart.webp" fetchpriority="high">
 <link rel="preload" as="image" href="assets/hero-poster.jpg">
 <noscript><link rel="stylesheet" href="/noscript.css"></noscript>
 </head>
 <body>
 <div class="ldr" id="ldr" role="status" aria-label="Loading SSR Rice Mill">
- <video class="ldr-vid" id="ldrv" disablepictureinpicture disableremoteplayback x-webkit-airplay="deny" controlslist="nodownload nofullscreen noremoteplayback" tabindex="-1" muted playsinline autoplay preload="auto" poster="assets/loader/walk-poster.jpg" aria-hidden="true">
-  <source src="assets/loader/walk-540.mp4" type="video/mp4" media="(max-width: 820px)">
-  <source src="assets/loader/walk-720.mp4" type="video/mp4">
- </video>
- <div class="ldr-shade"></div>
- <div class="ldr-c">
-  <img class="ldr-logo" src="assets/logo/ssr-mark-light.png" width="410" height="215" alt="SSR">
-  <p class="ldr-t" data-te="మా మిల్లు నుండి తాజా బియ్యం వస్తోంది&hellip;">Bringing fresh rice from our mill&hellip;</p>
-  <div class="ldr-bar"><i></i></div>
- </div>
+ <!-- painted sunrise paddy field + a farmer driving his bullock cart of harvested paddy along the bund (artwork in assets/loader) -->
+ <div class="ldr-stage" aria-hidden="true"><div class="ldr-cam">
+  <img class="ldr-bg" src="assets/loader/field-sunrise.jpg" srcset="assets/loader/field-sunrise-sm.jpg 1024w, assets/loader/field-sunrise.jpg 1536w" sizes="max(100vw,177.78vh)" alt="" decoding="async" fetchpriority="high">
+  <div class="ldr-glow"></div><div class="ldr-mist"></div>
+  <div class="ldr-shadow"></div><div class="ldr-cart"></div>
+ </div></div>
 </div>
 <script>
-/* loading screen: real footage of a farmer carrying a sack through the fields (Pexels 4684807).
-   Starts at 1.2s (skips a passer-by at the left edge) and loops from there. Stays ~2.2s so the walk is seen,
-   hides when the page has loaded, never longer than 6s. */
-(function(){var l=document.getElementById("ldr");if(!l)return;if(document.documentElement.lang==="te"){var lt=l.querySelector(".ldr-t");if(lt)lt.innerHTML=lt.getAttribute("data-te")}var d=document.documentElement,v=document.getElementById("ldrv"),t0=Date.now(),gone=false,START=1.2;d.classList.add("ldg");
- var still=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
- function play(){if(still||gone)return;var p=v.play();if(p&&p.catch)p.catch(function(){})}
- if(v){v.addEventListener("loadedmetadata",function(){try{v.currentTime=START}catch(e){}});
-  v.addEventListener("playing",function(){v.classList.add("on")});
-  v.addEventListener("ended",function(){v.currentTime=START;play()});
-  if(still){v.removeAttribute("autoplay");v.preload="none"}else play()}
- function hide(){if(gone)return;gone=true;l.classList.add("done");d.classList.remove("ldg");setTimeout(function(){if(v)v.pause();if(l.parentNode)l.parentNode.removeChild(l)},900)}
- function ready(){setTimeout(hide,Math.max(0,2200-(Date.now()-t0)))}
+/* loading screen: painted sunrise field; a farmer drives his pair of white bulls and a cart of harvested paddy along the bund
+   towards the sun. The motion is one real gait cycle (20 frames); the frame shown is driven by the distance travelled,
+   so hooves and wheels never slide. Stays at least ~3.2s, hides when the page has loaded, never longer than 7s. */
+(function(){var l=document.getElementById("ldr");if(!l)return;var d=document.documentElement;
+ d.classList.add("ldg");
+ var stage=l.querySelector(".ldr-stage"),cart=l.querySelector(".ldr-cart"),sh=l.querySelector(".ldr-shadow"),bg=l.querySelector(".ldr-bg"),
+  still=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches,t0=Date.now(),gone=false,MIN=3200,
+  /* sprite: 20 frames of 590x300 in a 5x4 grid; hooves/wheels touch the ground at 99.3% of the frame height;
+     one gait cycle covers 0.4923 x frame height of ground */
+  N=20,COLS=5,ROWS=4,ASPECT=590/300,FOOT=0.9933,DIST=0.4923,
+  tall=window.innerWidth<window.innerHeight,CYCLE=1.25,START=tall?.30:.26,END=tall?.95:.88,pos=START,phase=0,last=0;
+ function shown(){l.classList.add("in")}
+ if(bg.complete&&bg.naturalWidth)shown();else{bg.addEventListener("load",shown);bg.addEventListener("error",shown)}
+ var img=new Image();img.onload=function(){cart.classList.add("ok");sh.classList.add("ok")};img.src="assets/loader/bullock-cart.webp";
+ /* the bund (mud path) in the picture: its surface runs from 70% of the height at the left edge to 76.8% at the right */
+ function groundY(fx){return .70+.068*fx}
+ function place(dt){var sw=stage.offsetWidth,shh=stage.offsetHeight,vw=window.innerWidth,hh=shh*(tall?.13:.33),ww=hh*ASPECT;
+  if(tall&&ww>vw*.62){ww=vw*.62;hh=ww/ASPECT}
+  if(!still){var step=(DIST*hh/CYCLE)*dt;pos+=step/vw;phase=(phase+step/(DIST*hh))%1}
+  if(pos>END){pos=START;cart.classList.remove("ok");sh.classList.remove("ok");setTimeout(function(){cart.classList.add("ok");sh.classList.add("ok")},60)}
+  var vx=still?.5:pos,sx=(vx*vw+(sw-vw)/2),fx=sx/sw,gy=groundY(fx)*shh,k=Math.floor(phase*N)%N,
+   tilt=Math.atan(.068*shh/sw);   /* lean with the path so the bulls' hooves and the wheel both touch it */
+  cart.style.height=hh+"px";cart.style.width=ww+"px";cart.style.backgroundSize=(COLS*ww)+"px "+(ROWS*hh)+"px";
+  cart.style.backgroundPosition=(-(k%COLS)*ww)+"px "+(-Math.floor(k/COLS)*hh)+"px";
+  cart.style.transform="translate("+(sx-ww/2)+"px,"+(gy-FOOT*hh)+"px) rotate("+tilt+"rad) scaleX(-1)";   /* the footage faces left; mirrored so he drives left to right */
+  sh.style.width=ww*.96+"px";sh.style.transform="translate("+(sx-ww*.48)+"px,"+(gy-hh*.03)+"px) rotate("+tilt+"rad)"}
+ function loop(t){if(gone)return;var dt=last?Math.min((t-last)/1000,.05):0;last=t;place(dt);requestAnimationFrame(loop)}
+ requestAnimationFrame(loop);
+ function hide(){if(gone)return;gone=true;l.classList.add("done");d.classList.remove("ldg");setTimeout(function(){if(l.parentNode)l.parentNode.removeChild(l)},900)}
+ function ready(){setTimeout(hide,Math.max(0,MIN-(Date.now()-t0)))}
  if(document.readyState==="complete")ready();else addEventListener("load",ready);
- setTimeout(hide,6000);
+ setTimeout(hide,7000);
  addEventListener("pageshow",function(e){if(e.persisted)hide()})})();
 </script>
 <div id="root"></div>

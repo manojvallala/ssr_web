@@ -402,20 +402,26 @@ video::-webkit-media-controls-play-button{display:none!important;-webkit-appeara
 .logo img{transition:transform .4s cubic-bezier(.2,.8,.2,1)}.logo:hover img{transform:scale(1.04)}
 @media(max-width:640px){.logo img{height:42px}.flock img{height:56px}}
 @media(max-width:360px){.logo img{height:36px}}
-/* loading screen: full-screen real footage, logo + line + progress bar over a soft green fade */
+/* loading screen: painted sunrise paddy field (slow camera settle) + a farmer walking the bund with an SSR sack (painted 4-frame walk cycle) */
 html.ldg{overflow:hidden}
-.ldr{position:fixed;inset:0;z-index:200;overflow:hidden;background:#1f3d2b url(/assets/loader/walk-poster.jpg) 72% 50%/cover no-repeat;transition:opacity .8s ease,visibility .8s}
+.ldr{position:fixed;inset:0;z-index:200;overflow:hidden;background:linear-gradient(180deg,#9fb6c6 0%,#f0c992 45%,#e9a95c 62%,#6f8f3f 100%);transition:opacity .8s ease,visibility .8s}
 .ldr.done{opacity:0;visibility:hidden}
-.ldr-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:72% 50%}
-
-.ldr-shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(14,30,20,.9) 0%,rgba(14,30,20,.5) 34%,rgba(14,30,20,0) 62%)}
-.ldr-c{position:absolute;left:0;right:0;bottom:max(44px,8vh);display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 20px;text-align:center;color:var(--cream)}
-.ldr-logo{height:66px;width:auto;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35))}
-.ldr-t{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(22px,2.6vw,30px);line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,.45)}
-.ldr-bar{width:170px;height:3px;border-radius:3px;background:rgba(248,243,232,.25);overflow:hidden;margin-top:4px}
-.ldr-bar i{display:block;width:40%;height:100%;border-radius:3px;background:var(--gold);animation:ldrBar 1.3s ease-in-out infinite}
-@keyframes ldrBar{from{transform:translateX(-110%)}to{transform:translateX(260%)}}
-@media(max-width:640px){.ldr-logo{height:54px}}
+.ldr-stage{position:absolute;left:50%;top:50%;width:max(100vw,177.78vh);height:max(56.25vw,100vh);transform:translate(-50%,-50%)}
+.ldr-cam{position:absolute;inset:0;transform-origin:62% 60%;animation:ldrCam 12s cubic-bezier(.2,.7,.2,1) both}
+@keyframes ldrCam{from{transform:scale(1.07)}to{transform:scale(1)}}
+.ldr-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease}
+.ldr.in .ldr-bg{opacity:1}
+/* the sun breathes a little; a thin morning mist drifts along the tree line */
+.ldr-glow{position:absolute;left:68.6%;top:40.5%;width:46%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,236,180,.55) 0%,rgba(255,214,140,.22) 22%,rgba(255,200,120,0) 60%);mix-blend-mode:screen;animation:ldrSun 5s ease-in-out infinite alternate}
+@keyframes ldrSun{from{opacity:.55;transform:translate(-50%,-50%) scale(.94)}to{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
+.ldr-mist{position:absolute;left:-10%;right:-10%;top:37%;height:12%;background:linear-gradient(180deg,rgba(255,240,215,0),rgba(255,240,215,.38) 50%,rgba(255,240,215,0));filter:blur(6px);animation:ldrMist 14s ease-in-out infinite alternate}
+@keyframes ldrMist{from{transform:translateX(-3%)}to{transform:translateX(3%)}}
+.ldr-cart{position:absolute;left:0;top:0;background:url(/assets/loader/bullock-cart.webp) 0 0/500% 400% no-repeat;opacity:0;transition:opacity .5s ease;transform-origin:50% 99.3%;filter:saturate(.96) brightness(.97);will-change:transform}
+.ldr-cart.ok{opacity:1}
+.ldr-shadow{position:absolute;left:0;top:0;height:3%;transform-origin:50% 50%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(40,25,10,.5),rgba(40,25,10,0) 70%);opacity:0;transition:opacity .5s ease}
+.ldr-shadow.ok{opacity:1}
+.ldr::after{content:"";position:absolute;inset:0;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27200%27 height=%27200%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.85%27 numOctaves=%272%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .22 0 0 0 -.09%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E"),radial-gradient(ellipse 85% 85% at 50% 45%,rgba(40,24,6,0) 55%,rgba(40,24,6,.28) 100%)}
+@media(prefers-reduced-motion:reduce){.ldr-cam,.ldr-glow,.ldr-mist{animation:none}}
 /* call panel (laptops) */
 html.cdlg-on{overflow:hidden}
 .cdlg{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:16px}
@@ -478,7 +484,7 @@ html:not([lang=te]) .mnav .lng .l-en,html[lang=te] .mnav .lng .l-te{background:v
 @media(max-width:560px){.tools{gap:8px}.hd .lng span{padding:6px 9px}html:not([lang=te]) .hd .lng .l-en,html[lang=te] .hd .lng .l-te{display:none}.hd .lng span{background:none!important;color:var(--green)!important}}
 /* Telugu typography: Noto Telugu fonts behind the Latin ones, no letter-spacing (it breaks Telugu letters), more line height */
 html[lang=te] body{font-family:Jost,'Noto Sans Telugu',sans-serif}
-html[lang=te] :is(h1,h2,h3,h4,.cg,.sq div,.ldr-t,.mnav a,.vc h2,.bhead h3,.pk h3){font-family:'Cormorant Garamond','Noto Serif Telugu',serif}
+html[lang=te] :is(h1,h2,h3,h4,.cg,.sq div,.mnav a,.vc h2,.bhead h3,.pk h3){font-family:'Cormorant Garamond','Noto Serif Telugu',serif}
 html[lang=te] *{letter-spacing:normal!important}
 html[lang=te] :is(h1,h2,h3){line-height:1.35}
 html[lang=te] h1{font-size:clamp(34px,5.2vw,72px)}

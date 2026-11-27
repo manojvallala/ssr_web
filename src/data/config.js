@@ -1,6 +1,6 @@
 /* ============ EDIT ME ============ */
 export const GALLERY_SECONDS = 5; /* "SSR in pictures": seconds each picture stays on screen before moving to the next (e.g. 15 or 30) */
-export const VIDEO_SPEED = 0.75; /* playback speed for EVERY video on the page (hero, story chapters, about clip, loading screen): 1 = normal, 0.75 = a bit slower, 0.5 = half speed */
+export const VIDEO_SPEED = 0.75; /* playback speed for EVERY video on the page (hero, story chapters, about clip): 1 = normal, 0.75 = a bit slower, 0.5 = half speed */
 
 /* contact details used across the site */
 export const PHONE_TEL = '+919963083339';
